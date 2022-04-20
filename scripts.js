@@ -225,7 +225,7 @@ export function decorateBlocks($main) {
   //   .querySelectorAll('div.section > div > div')
   //   .forEach(($block) => decorateBlock($block));document.querySelector(".groups-container >div:last-child input")
   /* to consider embed div as a block */
-    decorateBlock(document.querySelector("main>div>div:last-child"));
+  decorateBlock(document.querySelector("main>div>div:last-child"));
 }
 
 /**
@@ -458,6 +458,9 @@ export function initHlx() {
       console.log(e);
     }
   }
+  var script = document.createElement("script");
+  script.src = "https://shorthand.worldbankgroup.org/an-accessible-future-for-persons-with-disabilities/static/story.40315.min.js";
+  document.querySelector("body").append(script);
 }
 
 initHlx();

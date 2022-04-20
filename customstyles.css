@@ -1,0 +1,5 @@
+@supports not (background: -webkit-named-image(i)) {
+    header .FullSize--fixedChild .FullSize__fixedChild {
+        position: static !important;
+    }
+}
