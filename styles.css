@@ -1,0 +1,132 @@
+/*@media (min-width: 767px) {
+  .container {
+    width: 750px; } }
+
+@media (min-width: 768px) {
+  .container {
+    width: 750px; } }
+
+@media (min-width: 992px) {
+  .container {
+    width: 960px; } }
+
+@media (min-width: 1200px) {
+  .container {
+    width: 1170px; } }
+.container {
+  margin-right: auto;
+  margin-left: auto;
+  padding-left: 8px;
+  padding-right: 8px;
+}*/
+
+/* main .section > div.columns-wrapper {
+    max-width: 1200px;
+} */
+
+main .column-1 > div {
+    display: flex;
+    flex-direction: column;
+    /*padding: 24px 0;*/
+    padding-bottom: 24px;
+    /*align-items: center;*/
+}
+
+main .column-1 > div:nth-child(even) {
+    display: flex;
+    flex-direction: column-reverse;
+}
+
+main .column-1 p {
+    font-size: 16px;
+}
+
+@media (min-width: 900px) {
+    main .column-1 > div,
+    main .column-1 > div:nth-child(even) {
+        flex-direction: unset;
+    }
+
+    /* main .columns > div > div {
+        width: 50%;
+    }*/
+
+    main .column-1 > div > div:first-child {
+        margin-right: 16px;
+    }
+
+    main .column-1 > div > div:last-child {
+        margin-left: 16px;
+    }
+}
+main .column-1 img {
+    /*max-width: 100%;*/
+    /*height: auto;*/
+    height: 148px;
+    width: 263px;
+}
+
+.title {
+    padding-top: 64px;
+}
+
+.primary-subnav-items {
+    background-color: #0071bc;
+}
+
+.hero-img {
+    overflow: hidden;
+    position: relative;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+}
+
+.hero-container h1 {
+    font-family: "Andes", sans-serif;
+    color: #ffffff;
+    text-transform: uppercase;
+    margin: 0px 0px 16px 0px;
+    font-weight: normal;
+    font-size: 40px;
+    line-height: 44px;
+}
+
+.hero-container > div {
+    position: absolute;
+    bottom: 10%;
+    text-align: center;
+    color: #ffffff;
+    margin: auto;
+    left: 0px;
+    right: 0px;
+    display: block;
+}
+.hero-container p {
+    font-family: "Andes", sans-serif;
+    color: #ffffff;
+    margin: 0px 0px 16px 0px;
+    font-size: 24px;
+    line-height: 30px;
+}
+.content-grid {
+    display: flex;
+    flex-wrap: wrap;
+}
+.column-1 {
+    max-width: 67%;
+    padding-right: 32px;
+}
+.column-2 {
+    max-width: 33%;
+}
+.column-2 > div {
+    border-left: 1px solid #e5e5e5;
+    padding-left: 32px;
+}
+.column-2 img {
+    width: 70%;
+}
+/* .logo-wrapper .logo img {
+    padding: 15px 15px;
+} */
