@@ -121,7 +121,12 @@ export function decorateBlock(block) {
   block.setAttribute('data-block-status', 'initialized');
 
   const blockWrapper = block.parentElement;
-  blockWrapper.classList.add(`${shortBlockName}-wrapper`);
+  if (shortBlockName === "theme") {
+    blockWrapper.classList.add(`${shortBlockName}-wrapper`, "Theme-Section", "Theme-RevealSection", "Theme-Section-Position-3", "DisplayContainerHeight--minHeight", "Theme-Section-Layout--Full",
+      "Theme-Section-Dark", "Theme-Section-HasOverlay");
+  } else {
+    blockWrapper.classList.add(`${shortBlockName}-wrapper`);
+  }
 }
 
 /**
@@ -224,8 +229,12 @@ export function decorateBlocks($main) {
   // $main
   //   .querySelectorAll('div.section > div > div')
   //   .forEach(($block) => decorateBlock($block));document.querySelector(".groups-container >div:last-child input")
-  /* to consider embed div as a block */
-  decorateBlock(document.querySelector("main>div>div:last-child"));
+
+  // decorateBlock(document.querySelector("main>div>div"));
+  $main
+    .querySelectorAll('div.section > div > div')
+    .forEach(($block) => decorateBlock($block));
+  // decorateBlock(document.querySelector('div.section > div > div'));
 }
 
 /**
@@ -569,6 +578,10 @@ function addSectionBackgrounds(main) {
   });
 }
 
+function addClassNames(main) {
+  main.classList.add("Core--rootElement", "Theme-Story");
+}
+
 /**
  * Decorates the main element.
  * @param {Element} main The main element
@@ -579,8 +592,33 @@ export function decorateMain(main) {
   // decorateButtons(main);
   // decorateIcons(main);
   // buildAutoBlocks(main);
-  // decorateSections(main);
+  decorateSections(main);
   decorateBlocks(main);
+  addClassNames(main);
+  
+  const themeSection = document.createElement('div');
+  themeSection.classList.add("Theme-Section", "Theme-TextSection", "Theme-Section-Position-4", "Theme-Section-Layout--Full", "Theme-Section-Light", "Theme-BodyTextColumn-Left",
+    "Theme-Columns--1");
+  const layout = document.createElement('div');
+  layout.classList.add("Layout", "Layer--one");
+  const layoutRow = document.createElement('div');
+  layoutRow.className = "Layout__row";
+  const layoutCol = document.createElement('div');
+  layoutCol.classList.add("Layout__col", "Layout__col-lg-6", "Layout__col-lg-left", "Layout__col-md-6", "Layout__col-md-right", "Layout__col-sm-10",
+    "Layout__col-sm-center", "Layout__col-xs-12", "Layout__col-xs-left", "Theme-Column");
+  const layoutBodyText = document.createElement('div');
+  layoutBodyText.className = "Theme-Layer-BodyText--inner";
+  const y = main.querySelector('.text-container.embed-container').children;
+  [...y].forEach(item => {
+    layoutBodyText.append(item)
+  })
+  layoutCol.append(layoutBodyText);
+  layoutRow.append(layoutCol);
+  layout.append(layoutRow);
+  themeSection.append(layout);
+  main.querySelector('.text-container.embed-container').append(themeSection);
+
+
   // addSectionBackgrounds(main);
   // check if first section is dark
   //if (document.querySelector('main .section').classList.contains('dark')) document.querySelector('header').classList.add('dark');
@@ -591,65 +629,6 @@ export function decorateMain(main) {
  */
 async function loadEager(doc) {
   const main = doc.querySelector('main');
-
-  // var logos = document.querySelectorAll('.logo')
-  // logos.forEach((logo) => {
-  //   var wrapper = document.createElement('div');
-  //   wrapper.className = "logo-wrapper";
-  //   var container = document.createElement('div');
-  //   container.className = "container";
-  //   wrapper.appendChild(container).appendChild(logo);
-  //   var target = document.querySelectorAll('.primary-subnav-items')[0];
-  //   target.before(wrapper);
-  // })
-
-  var heroImg = document.querySelectorAll('.hero-img')[0];
-  var heroContainer = document.querySelectorAll('.hero-container')[0];
-  var complaintButton = document.querySelectorAll('.hero-container p a')[0];
-  complaintButton.classList.add("btn", "btn-default", "btn-lg", "primary-orange-btn");
-  heroContainer.classList.add("container");
-  var parent1 = document.createElement('div');
-  parent1.classList.add("hero-v1-section", "swiper-slide");
-  var parent2 = document.createElement('div');
-  parent2.classList.add("hero-container-fixed", "swiper-container", "swiper-container-horizontal", "swiper-container-coverflow", "swiper-container-3d");
-  parent2.appendChild(parent1).append(heroImg, heroContainer);
-  var target = document.querySelectorAll('.primary-subnav-items')[0];
-  target.before(parent2);
-
-  var column1 = document.querySelectorAll('.column-1')[0];
-  var column2 = document.querySelectorAll('.column-2')[0];
-  var wrapper = document.createElement('div');
-  wrapper.className = "full-row-white-components";
-  var container = document.createElement('div');
-  container.classList.add("container", "content-grid");
-  wrapper.appendChild(container).append(column1, column2);
-  var datatarget = document.querySelectorAll('.primary-subnav-items')[0];
-  datatarget.after(wrapper);
-
-  var navContainer = document.querySelectorAll('.primary-subnav-items>div')[0];
-  navContainer.className = "container";
-
-  let newsletter = document.createElement('div');
-  newsletter.className = "home-newsletter";
-  const form = document.createElement('form');
-  form.classList.add("validate", "input-group", "mySignUpFormDesktop");
-  form.action = "https://www.worldbank.org/en/newsletter-subscription?worldbankgroup=true";
-  form.method = "GET";
-  form.target = "_blank";
-  newsletter.append(form);
-  document.querySelectorAll('.column-1')[0].append(newsletter);
-  let inputText = document.createElement('input');
-  inputText.type = "text";
-  inputText.id = "fields_email";
-  inputText.setAttribute('placeholder', "Research & Operations/Accountability Matters");
-  inputText.className = "email-input-field-1";
-  let inputSubmit = document.createElement('input');
-  inputSubmit.type = "submit";
-  inputSubmit.id = "mc-embedded-subscribe";
-  inputSubmit.classList.add("newsletter-submit", "btn-default", "btn-lg", "primary-dark-blue-btn");
-  form.append(inputText, inputSubmit);
-
-
 
   // const theme = getMetadata('theme');
   // if (theme) document.body.classList.add(toClassName(theme));
@@ -671,7 +650,6 @@ async function loadLazy(doc) {
   // loadFooter(doc.querySelector('footer'));
 
   // loadCSS(`${window.hlx.codeBasePath}/styles/lazy-styles.css`);
-  loadCSS("https://www.worldbank.org/etc/designs/wbrrdesign/clientlibs-wbrredsign.css");
   addFavIcon(`${window.hlx.codeBasePath}/styles/favicon.ico`);
 }
 
