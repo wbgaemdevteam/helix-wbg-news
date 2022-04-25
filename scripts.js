@@ -662,45 +662,8 @@ export function decorateMain(main) {
   addClassNames(main);
 
   decorateTextVideo(main);
-  decorateTextImage(main);  
-
-//   const x = document.createElement('div');
-//   x.innerHTML = 
-//   `<div class="section Theme-Section Theme-TextOverMediaSection Theme-Section-Position-5 DisplayContainerHeight--heightHalf DisplayContainerHeight--minHeightHalf DisplayContainerHeight--flex Theme-Section-Layout--Full Theme-Section-Dark Theme-Section-HasOverlay textovermedia-container"
-// data-section-status="loaded">
-//             <div class="Layer--two FullSize FullSize--fixedChild FullSize--child Theme-BackgroundMedia Theme-BackgroundImage">
-//                 <div data-lazyload-container="true" data-lazyload-trigger="true"
-//                     class="FullSize--fullWidth FullSize--fullHeight Core--pointerEventsNone Lazyload Lazyload--isLoading">
-//                     <div data-lazyload-item="true" class="FullSize">
-                   
-//                         <picture
-//                             class="FullSize--fullWidth DisplayContainerHeight FullSize--fixedChild HideOffscreen--container Theme-Item-Picture"
-//                             data-landscape-focal="50% 50%" data-portrait-focal="50% 50%">
-//                             <source
-//                                 data-srcset="https://shorthand.worldbankgroup.org/an-accessible-future-for-persons-with-disabilities/assets/AOPCO1rXKb/dl1b0569wb-iei-rwanda-750x500.webp 750w, https://shorthand.worldbankgroup.org/an-accessible-future-for-persons-with-disabilities/assets/AOPCO1rXKb/dl1b0569wb-iei-rwanda-2183x1456.webp 2183w, https://shorthand.worldbankgroup.org/an-accessible-future-for-persons-with-disabilities/assets/AOPCO1rXKb/dl1b0569wb-iei-rwanda-3244x2163.webp 3244w, https://shorthand.worldbankgroup.org/an-accessible-future-for-persons-with-disabilities/assets/AOPCO1rXKb/dl1b0569wb-iei-rwanda-4096x2731.webp 4096w"
-//                                 type="image/webp" media="(max-aspect-ratio: 1/1)" sizes="100vw">
-//                             <source
-//                                 data-srcset="https://shorthand.worldbankgroup.org/an-accessible-future-for-persons-with-disabilities/assets/AOPCO1rXKb/dl1b0569wb-iei-rwanda-750x500.webp 750w, https://shorthand.worldbankgroup.org/an-accessible-future-for-persons-with-disabilities/assets/AOPCO1rXKb/dl1b0569wb-iei-rwanda-2183x1456.webp 2183w, https://shorthand.worldbankgroup.org/an-accessible-future-for-persons-with-disabilities/assets/AOPCO1rXKb/dl1b0569wb-iei-rwanda-3244x2163.webp 3244w, https://shorthand.worldbankgroup.org/an-accessible-future-for-persons-with-disabilities/assets/AOPCO1rXKb/dl1b0569wb-iei-rwanda-4096x2731.webp 4096w"
-//                                 type="image/webp" media="(min-aspect-ratio: 1/1)" sizes="100vw">
-//                             <source
-//                                 data-srcset="https://shorthand.worldbankgroup.org/an-accessible-future-for-persons-with-disabilities/assets/AOPCO1rXKb/dl1b0569wb-iei-rwanda-750x500.jpeg 750w, https://shorthand.worldbankgroup.org/an-accessible-future-for-persons-with-disabilities/assets/AOPCO1rXKb/dl1b0569wb-iei-rwanda-2241x1494.jpeg 2241w, https://shorthand.worldbankgroup.org/an-accessible-future-for-persons-with-disabilities/assets/AOPCO1rXKb/dl1b0569wb-iei-rwanda-3251x2168.jpeg 3251w, https://shorthand.worldbankgroup.org/an-accessible-future-for-persons-with-disabilities/assets/AOPCO1rXKb/dl1b0569wb-iei-rwanda-4096x2731.jpeg 4096w"
-//                                 type="image/jpeg" media="(min-aspect-ratio: 1/1)" sizes="100vw">
-//                             <source
-//                                 data-srcset="https://shorthand.worldbankgroup.org/an-accessible-future-for-persons-with-disabilities/assets/AOPCO1rXKb/dl1b0569wb-iei-rwanda-750x500.jpeg 750w, https://shorthand.worldbankgroup.org/an-accessible-future-for-persons-with-disabilities/assets/AOPCO1rXKb/dl1b0569wb-iei-rwanda-2241x1494.jpeg 2241w, https://shorthand.worldbankgroup.org/an-accessible-future-for-persons-with-disabilities/assets/AOPCO1rXKb/dl1b0569wb-iei-rwanda-3251x2168.jpeg 3251w, https://shorthand.worldbankgroup.org/an-accessible-future-for-persons-with-disabilities/assets/AOPCO1rXKb/dl1b0569wb-iei-rwanda-4096x2731.jpeg 4096w"
-//                                 type="image/jpeg" media="(max-aspect-ratio: 1/1)" sizes="100vw">
-//                             <img class="DisplayContainerHeight FullSize--fullWidth FullSize__fixedChild HideOffscreen__media ObjectFit--cover"
-//                                 data-src="https://shorthand.worldbankgroup.org/an-accessible-future-for-persons-with-disabilities/assets/AOPCO1rXKb/dl1b0569wb-iei-rwanda-4096x2731.jpeg"
-//                                 loading="lazy" style="object-position:50% 50%">
-//                         </picture>
-                        
-//                     </div>
-//                 </div>
-//                 <div class="FullSize Theme-Overlay Theme-Section-Dark" style="opacity:0;background-color:#000000"></div>
-//             </div>
-       
-// </div>
-// <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>`
-//   main.querySelector('.school-text-container.captioned-image-container').after(x);
+  decorateTextImage(main);
+  
   // addSectionBackgrounds(main);
   // check if first section is dark
   //if (document.querySelector('main .section').classList.contains('dark')) document.querySelector('header').classList.add('dark');

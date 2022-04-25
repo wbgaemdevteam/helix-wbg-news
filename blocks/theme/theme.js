@@ -47,7 +47,6 @@ export default function decorate(block) {
   // DOM structure for text blocks
   const outerDiv = document.createElement('div');
   outerDiv.className = "MediaRenderer__textBlocks";
-  // block.querySelectorAll("div:not(:first-child)").forEach(($textBlock) => {
   [...block.children].forEach(($textBlock) => {
     outerDiv.appendChild($textBlock);
     decorateTextBlock($textBlock);
