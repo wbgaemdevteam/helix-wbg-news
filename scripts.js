@@ -663,7 +663,7 @@ export function decorateMain(main) {
 
   decorateTextVideo(main);
   decorateTextImage(main);
-  
+
   // addSectionBackgrounds(main);
   // check if first section is dark
   //if (document.querySelector('main .section').classList.contains('dark')) document.querySelector('header').classList.add('dark');
@@ -697,6 +697,10 @@ async function loadLazy(doc) {
   // loadCSS(`${window.hlx.codeBasePath}/styles/lazy-styles.css`);
   addFavIcon(`${window.hlx.codeBasePath}/styles/favicon.ico`);
 
+  //space after the last section. to be removed
+  const div = document.createElement('div');
+  div.innerHTML = "</br></br></br></br></br></br></br></br></br></br>"
+  document.querySelector("body").append(div)
   //load the script once the dom is loaded
   var script = document.createElement("script");
   script.src = "./shorthand.js";
