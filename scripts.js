@@ -121,12 +121,12 @@ export function decorateBlock(block) {
   block.setAttribute('data-block-status', 'initialized');
 
   const blockWrapper = block.parentElement;
-  if (shortBlockName === "theme") {
-    blockWrapper.classList.add(`${shortBlockName}-wrapper`, "Theme-Section", "Theme-RevealSection", "Theme-Section-Position-3", "DisplayContainerHeight--minHeight", "Theme-Section-Layout--Full",
-      "Theme-Section-Dark", "Theme-Section-HasOverlay");
-  } else {
-    blockWrapper.classList.add(`${shortBlockName}-wrapper`);
-  }
+  // if (shortBlockName === "theme") {
+  //   blockWrapper.classList.add(`${shortBlockName}-wrapper`, "Theme-Section", "Theme-RevealSection", "Theme-Section-Position-3", "DisplayContainerHeight--minHeight", "Theme-Section-Layout--Full",
+  //     "Theme-Section-Dark", "Theme-Section-HasOverlay");
+  // } else {
+  blockWrapper.classList.add(`${shortBlockName}-wrapper`);
+  // }
 }
 
 /**
@@ -168,6 +168,27 @@ export function readBlockConfig($block) {
 }
 
 /**
+ * Adds classnames to sections based on position meta attribute given in google sheet.
+ * @param {string} position The section position
+ * @param {Element} $section The section element
+ */
+function addClassNamesForPosition(position, $section) {
+  if (position === "3") {
+    $section.classList.add("Theme-Section", "Theme-RevealSection", "Theme-Section-Position-3", "DisplayContainerHeight--minHeight", "Theme-Section-Layout--Full",
+      "Theme-Section-Dark", "Theme-Section-HasOverlay");
+  } else if (position === "4") {
+    $section.classList.add("Theme-Section", "Theme-TextSection", "Theme-Section-Position-4", "Theme-Section-Layout--Full", "Theme-Section-Light", "Theme-BodyTextColumn-Left",
+      "Theme-Columns--1");
+  } else if (position === "2") {
+    $section.classList.add("Theme-Section", "Theme-TextSection", "Theme-Section-Position-2", "Theme-Section-Layout--Full", "Theme-Section-Light", "Theme-BodyTextColumn-Center",
+      "Theme-Section-HasOverlay", "Theme-Columns--2")
+  } else if (position === "5") {
+    $section.classList.add("Theme-Section", "Theme-TextOverMediaSection", "Theme-Section-Position-5", "DisplayContainerHeight--heightHalf",
+      "DisplayContainerHeight--minHeightHalf", "DisplayContainerHeight--flex", "Theme-Section-Layout--Full", "Theme-Section-Dark", "Theme-Section-HasOverlay");
+  }
+}
+
+/**
  * Decorates all sections in a container element.
  * @param {Element} $main The container element
  */
@@ -194,9 +215,12 @@ export function decorateSections($main) {
       const keys = Object.keys(meta);
       keys.forEach((key) => {
         if (key === 'style') section.classList.add(toClassName(meta.style));
+        else if (key === 'position') {
+          addClassNamesForPosition(meta[key], section);
+        }
         else section.dataset[key] = meta[key];
       });
-      sectionMeta.remove();
+      sectionMeta.parentNode.remove();
     }
   });
 }
@@ -467,9 +491,9 @@ export function initHlx() {
       console.log(e);
     }
   }
-  var script = document.createElement("script");
-  script.src = "https://shorthand.worldbankgroup.org/an-accessible-future-for-persons-with-disabilities/static/story.40315.min.js";
-  document.querySelector("body").append(script);
+  // var script = document.createElement("script");
+  // script.src = "https://shorthand.worldbankgroup.org/an-accessible-future-for-persons-with-disabilities/static/story.40315.min.js";
+  // document.querySelector("body").append(script);
 }
 
 initHlx();
@@ -582,6 +606,47 @@ function addClassNames(main) {
   main.classList.add("Core--rootElement", "Theme-Story");
 }
 
+function decorateTextVideo(main) {
+  const layout = document.createElement('div');
+  layout.classList.add("Layout", "Layer--one");
+  const layoutRow = document.createElement('div');
+  layoutRow.className = "Layout__row";
+  const layoutCol = document.createElement('div');
+  layoutCol.classList.add("Layout__col", "Layout__col-lg-6", "Layout__col-lg-left", "Layout__col-md-6", "Layout__col-md-right", "Layout__col-sm-10",
+    "Layout__col-sm-center", "Layout__col-xs-12", "Layout__col-xs-left", "Theme-Column");
+  const bodyText = document.createElement('div');
+  bodyText.className = "Theme-Layer-BodyText";
+  const bodyTextInner = document.createElement('div');
+  bodyTextInner.className = "Theme-Layer-BodyText--inner";
+  const children = main.querySelector('.text-container.embed-container').children;
+  bodyTextInner.append(...children);
+  bodyText.append(bodyTextInner);
+  layoutCol.append(bodyText);
+  layoutRow.append(layoutCol);
+  layout.append(layoutRow);
+  main.querySelector('.text-container.embed-container').append(layout);
+}
+
+function decorateTextImage(main) {
+  const layout = document.createElement('div');
+  layout.classList.add("Layout", "Layer--one");
+  const layoutRow = document.createElement('div');
+  layoutRow.className = "Layout__row";
+  const outerTextDiv = document.createElement('div');
+  outerTextDiv.classList.add("Layout__col", "Layout__col-lg-6", "Layout__col-lg-center", "Layout__col-md-6", "Layout__col-md-left", "Layout__col-sm-10", "Layout__col-sm-center", "Layout__col-xs-12",
+    "Layout__col-xs-left", "Theme-Column");
+  const outerImageDiv = document.createElement('div');
+  outerImageDiv.classList.add("Layout__col", "Layout__col-lg-6", "Layout__col-lg-center", "Layout__col-md-6", "Layout__col-md-left", "Layout__col-sm-10", "Layout__col-sm-center", "Layout__col-xs-12",
+    "Layout__col-xs-left", "Theme-Column");
+  const textElement = main.querySelector('.school-text-wrapper');
+  outerTextDiv.append(textElement);
+  const imageElement = main.querySelector('.captioned-image-wrapper');
+  outerImageDiv.append(imageElement);
+  layoutRow.append(outerTextDiv, outerImageDiv);
+  layout.append(layoutRow);
+  main.querySelector('.school-text-container.captioned-image-container').append(layout);
+}
+
 /**
  * Decorates the main element.
  * @param {Element} main The main element
@@ -595,30 +660,47 @@ export function decorateMain(main) {
   decorateSections(main);
   decorateBlocks(main);
   addClassNames(main);
-  
-  const themeSection = document.createElement('div');
-  themeSection.classList.add("Theme-Section", "Theme-TextSection", "Theme-Section-Position-4", "Theme-Section-Layout--Full", "Theme-Section-Light", "Theme-BodyTextColumn-Left",
-    "Theme-Columns--1");
-  const layout = document.createElement('div');
-  layout.classList.add("Layout", "Layer--one");
-  const layoutRow = document.createElement('div');
-  layoutRow.className = "Layout__row";
-  const layoutCol = document.createElement('div');
-  layoutCol.classList.add("Layout__col", "Layout__col-lg-6", "Layout__col-lg-left", "Layout__col-md-6", "Layout__col-md-right", "Layout__col-sm-10",
-    "Layout__col-sm-center", "Layout__col-xs-12", "Layout__col-xs-left", "Theme-Column");
-  const layoutBodyText = document.createElement('div');
-  layoutBodyText.className = "Theme-Layer-BodyText--inner";
-  const y = main.querySelector('.text-container.embed-container').children;
-  [...y].forEach(item => {
-    layoutBodyText.append(item)
-  })
-  layoutCol.append(layoutBodyText);
-  layoutRow.append(layoutCol);
-  layout.append(layoutRow);
-  themeSection.append(layout);
-  main.querySelector('.text-container.embed-container').append(themeSection);
 
+  decorateTextVideo(main);
+  decorateTextImage(main);  
 
+//   const x = document.createElement('div');
+//   x.innerHTML = 
+//   `<div class="section Theme-Section Theme-TextOverMediaSection Theme-Section-Position-5 DisplayContainerHeight--heightHalf DisplayContainerHeight--minHeightHalf DisplayContainerHeight--flex Theme-Section-Layout--Full Theme-Section-Dark Theme-Section-HasOverlay textovermedia-container"
+// data-section-status="loaded">
+//             <div class="Layer--two FullSize FullSize--fixedChild FullSize--child Theme-BackgroundMedia Theme-BackgroundImage">
+//                 <div data-lazyload-container="true" data-lazyload-trigger="true"
+//                     class="FullSize--fullWidth FullSize--fullHeight Core--pointerEventsNone Lazyload Lazyload--isLoading">
+//                     <div data-lazyload-item="true" class="FullSize">
+                   
+//                         <picture
+//                             class="FullSize--fullWidth DisplayContainerHeight FullSize--fixedChild HideOffscreen--container Theme-Item-Picture"
+//                             data-landscape-focal="50% 50%" data-portrait-focal="50% 50%">
+//                             <source
+//                                 data-srcset="https://shorthand.worldbankgroup.org/an-accessible-future-for-persons-with-disabilities/assets/AOPCO1rXKb/dl1b0569wb-iei-rwanda-750x500.webp 750w, https://shorthand.worldbankgroup.org/an-accessible-future-for-persons-with-disabilities/assets/AOPCO1rXKb/dl1b0569wb-iei-rwanda-2183x1456.webp 2183w, https://shorthand.worldbankgroup.org/an-accessible-future-for-persons-with-disabilities/assets/AOPCO1rXKb/dl1b0569wb-iei-rwanda-3244x2163.webp 3244w, https://shorthand.worldbankgroup.org/an-accessible-future-for-persons-with-disabilities/assets/AOPCO1rXKb/dl1b0569wb-iei-rwanda-4096x2731.webp 4096w"
+//                                 type="image/webp" media="(max-aspect-ratio: 1/1)" sizes="100vw">
+//                             <source
+//                                 data-srcset="https://shorthand.worldbankgroup.org/an-accessible-future-for-persons-with-disabilities/assets/AOPCO1rXKb/dl1b0569wb-iei-rwanda-750x500.webp 750w, https://shorthand.worldbankgroup.org/an-accessible-future-for-persons-with-disabilities/assets/AOPCO1rXKb/dl1b0569wb-iei-rwanda-2183x1456.webp 2183w, https://shorthand.worldbankgroup.org/an-accessible-future-for-persons-with-disabilities/assets/AOPCO1rXKb/dl1b0569wb-iei-rwanda-3244x2163.webp 3244w, https://shorthand.worldbankgroup.org/an-accessible-future-for-persons-with-disabilities/assets/AOPCO1rXKb/dl1b0569wb-iei-rwanda-4096x2731.webp 4096w"
+//                                 type="image/webp" media="(min-aspect-ratio: 1/1)" sizes="100vw">
+//                             <source
+//                                 data-srcset="https://shorthand.worldbankgroup.org/an-accessible-future-for-persons-with-disabilities/assets/AOPCO1rXKb/dl1b0569wb-iei-rwanda-750x500.jpeg 750w, https://shorthand.worldbankgroup.org/an-accessible-future-for-persons-with-disabilities/assets/AOPCO1rXKb/dl1b0569wb-iei-rwanda-2241x1494.jpeg 2241w, https://shorthand.worldbankgroup.org/an-accessible-future-for-persons-with-disabilities/assets/AOPCO1rXKb/dl1b0569wb-iei-rwanda-3251x2168.jpeg 3251w, https://shorthand.worldbankgroup.org/an-accessible-future-for-persons-with-disabilities/assets/AOPCO1rXKb/dl1b0569wb-iei-rwanda-4096x2731.jpeg 4096w"
+//                                 type="image/jpeg" media="(min-aspect-ratio: 1/1)" sizes="100vw">
+//                             <source
+//                                 data-srcset="https://shorthand.worldbankgroup.org/an-accessible-future-for-persons-with-disabilities/assets/AOPCO1rXKb/dl1b0569wb-iei-rwanda-750x500.jpeg 750w, https://shorthand.worldbankgroup.org/an-accessible-future-for-persons-with-disabilities/assets/AOPCO1rXKb/dl1b0569wb-iei-rwanda-2241x1494.jpeg 2241w, https://shorthand.worldbankgroup.org/an-accessible-future-for-persons-with-disabilities/assets/AOPCO1rXKb/dl1b0569wb-iei-rwanda-3251x2168.jpeg 3251w, https://shorthand.worldbankgroup.org/an-accessible-future-for-persons-with-disabilities/assets/AOPCO1rXKb/dl1b0569wb-iei-rwanda-4096x2731.jpeg 4096w"
+//                                 type="image/jpeg" media="(max-aspect-ratio: 1/1)" sizes="100vw">
+//                             <img class="DisplayContainerHeight FullSize--fullWidth FullSize__fixedChild HideOffscreen__media ObjectFit--cover"
+//                                 data-src="https://shorthand.worldbankgroup.org/an-accessible-future-for-persons-with-disabilities/assets/AOPCO1rXKb/dl1b0569wb-iei-rwanda-4096x2731.jpeg"
+//                                 loading="lazy" style="object-position:50% 50%">
+//                         </picture>
+                        
+//                     </div>
+//                 </div>
+//                 <div class="FullSize Theme-Overlay Theme-Section-Dark" style="opacity:0;background-color:#000000"></div>
+//             </div>
+       
+// </div>
+// <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>`
+//   main.querySelector('.school-text-container.captioned-image-container').after(x);
   // addSectionBackgrounds(main);
   // check if first section is dark
   //if (document.querySelector('main .section').classList.contains('dark')) document.querySelector('header').classList.add('dark');
@@ -651,6 +733,11 @@ async function loadLazy(doc) {
 
   // loadCSS(`${window.hlx.codeBasePath}/styles/lazy-styles.css`);
   addFavIcon(`${window.hlx.codeBasePath}/styles/favicon.ico`);
+
+  //load the script once the dom is loaded
+  var script = document.createElement("script");
+  script.src = "./shorthand.js";
+  document.querySelector("body").append(script);
 }
 
 /**
