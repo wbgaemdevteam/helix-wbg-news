@@ -301,9 +301,9 @@ export async function loadBlock(block, eager = false) {
     block.setAttribute('data-block-status', 'loading');
     const blockName = block.getAttribute('data-block-name');
     try {
-      const cssLoaded = new Promise((resolve) => {
-        loadCSS(`${window.hlx.codeBasePath}/blocks/${blockName}/${blockName}.css`, resolve);
-      });
+      // const cssLoaded = new Promise((resolve) => {
+      //   loadCSS(`${window.hlx.codeBasePath}/blocks/${blockName}/${blockName}.css`, resolve);
+      // });
       const decorationComplete = new Promise((resolve) => {
         (async () => {
           try {
@@ -663,6 +663,69 @@ export function decorateMain(main) {
 
   decorateTextVideo(main);
   decorateTextImage(main);
+
+  const header = document.createElement('header');
+  header.classList.add("Theme-Section", "Theme-TitleSection", "Theme-Section-Position-1", "DisplayContainerHeight", "DisplayContainerHeight--minHeight",
+    "DisplayContainerHeight--flex", "Theme-Section-Layout--Full", "Theme-Section-Dark", "Theme-Section-HasOverlay")
+  const x = `<div class="Layout FullSize--fullHeight Theme-Layer-TextBlock Layer--one">
+              <div class="Layout__flex--xleft Layout__flex--ybottom Theme-Layer-TextBlock-Container"
+                  data-scrollymoly-basis="true">
+                  <div class="Theme-Layer-TextBlock-Inner DisplayContainer--heightBasis">
+                      <div>
+                          <h1 style="font-family:Raleway,sans-serif" class="Theme-StoryTitle Theme-TextSize-small h-align-left">
+                              <strong>An Accessible Future for Persons with Disabilities</strong></h1>
+                          <p style="font-family:Libre Baskerville,serif" class="Theme-LeadIn Theme-TextSize-xxsmall"><em>What Does
+                                  It Take?</em></p>
+                      </div>
+                  </div>
+              </div>
+              <div class="Layout__flex--xleft Layout__flex--ybottom Theme-Layer-TextBlock-Container"
+                  data-scrollymoly-basis="true">
+                  <div class="Theme-Layer-TextBlock-Inner DisplayContainer--heightBasis">
+                      <div></div>
+                  </div>
+              </div>
+            </div>
+            <div class="Layer--two FullSize FullSize--fixedChild FullSize--child Theme-BackgroundMedia Theme-BackgroundVideo"
+              data-background-video="true">
+              <div class="FullSize--fullWidth FullSize--fullHeight">
+                  <div class="FullSize--fullWidth DisplayContainerHeight FullSize--fixedChild" style="position:absolute"><video
+                          data-video="true" loop="" muted="" autoplay=""
+                          class="FullSize--basic ObjectFit--cover FullSize__fixedChild" playsinline=""
+                          data-landscape="//shorthand.worldbankgroup.org/an-accessible-future-for-persons-with-disabilities/assets/X60SmsEEcO/rwanda-b-roll-opener.mp4"
+                          data-landscape-focal="50% 50%"
+                          data-portrait="//shorthand.worldbankgroup.org/an-accessible-future-for-persons-with-disabilities/assets/SFXdBXWJhE/rwanda-broll-opener-vert.mp4"
+                          data-portrait-focal="50% 50%" data-type="video/mp4" tabindex="0" data-object-fit="cover"
+                          data-object-position="50% 50%" style="object-position: 50% 50%; opacity: 1;">
+                          <source
+                              src="//shorthand.worldbankgroup.org/an-accessible-future-for-persons-with-disabilities/assets/X60SmsEEcO/rwanda-b-roll-opener.mp4"
+                              type="video/mp4">
+                      </video>
+                      <picture
+                          class="FullSize--fullWidth DisplayContainerHeight BackgroundVideo__fallback FullSize--fixedChild HideOffscreen--container Levels--basement Theme-Item-Picture"
+                          data-landscape-focal="50% 50%" data-portrait-focal="50% 50%">
+                          <source
+                              srcset="//shorthand.worldbankgroup.org/an-accessible-future-for-persons-with-disabilities/assets/MPx4Zledp3/fallback-750x1333.webp 750w, //shorthand.worldbankgroup.org/an-accessible-future-for-persons-with-disabilities/assets/MPx4Zledp3/fallback-958x1703.webp 958w, //shorthand.worldbankgroup.org/an-accessible-future-for-persons-with-disabilities/assets/MPx4Zledp3/fallback-1080x1920.webp 1080w"
+                              type="image/webp" media="(max-aspect-ratio: 1/1)" sizes="100vw">
+                          <source
+                              srcset="//shorthand.worldbankgroup.org/an-accessible-future-for-persons-with-disabilities/assets/gQfepmnsfg/fallback-750x422.webp 750w, //shorthand.worldbankgroup.org/an-accessible-future-for-persons-with-disabilities/assets/gQfepmnsfg/fallback-1921x1081.webp 1921w, //shorthand.worldbankgroup.org/an-accessible-future-for-persons-with-disabilities/assets/gQfepmnsfg/fallback-2837x1596.webp 2837w, //shorthand.worldbankgroup.org/an-accessible-future-for-persons-with-disabilities/assets/gQfepmnsfg/fallback-3840x2160.webp 3840w"
+                              type="image/webp" media="(min-aspect-ratio: 1/1)" sizes="100vw">
+                          <source
+                              srcset="//shorthand.worldbankgroup.org/an-accessible-future-for-persons-with-disabilities/assets/gQfepmnsfg/fallback-750x422.jpeg 750w, //shorthand.worldbankgroup.org/an-accessible-future-for-persons-with-disabilities/assets/gQfepmnsfg/fallback-1901x1069.jpeg 1901w, //shorthand.worldbankgroup.org/an-accessible-future-for-persons-with-disabilities/assets/gQfepmnsfg/fallback-2780x1564.jpeg 2780w, //shorthand.worldbankgroup.org/an-accessible-future-for-persons-with-disabilities/assets/gQfepmnsfg/fallback-3840x2160.jpeg 3840w"
+                              type="image/jpeg" media="(min-aspect-ratio: 1/1)" sizes="100vw">
+                          <source
+                              srcset="//shorthand.worldbankgroup.org/an-accessible-future-for-persons-with-disabilities/assets/MPx4Zledp3/fallback-750x1333.jpeg 750w, //shorthand.worldbankgroup.org/an-accessible-future-for-persons-with-disabilities/assets/MPx4Zledp3/fallback-896x1593.jpeg 896w, //shorthand.worldbankgroup.org/an-accessible-future-for-persons-with-disabilities/assets/MPx4Zledp3/fallback-1030x1831.jpeg 1030w, //shorthand.worldbankgroup.org/an-accessible-future-for-persons-with-disabilities/assets/MPx4Zledp3/fallback-1080x1920.jpeg 1080w"
+                              type="image/jpeg" media="(max-aspect-ratio: 1/1)" sizes="100vw"><img
+                              class="DisplayContainerHeight FullSize--fullWidth FullSize__fixedChild HideOffscreen__media ObjectFit--cover HideOffscreen__media--onscreen"
+                              src="//shorthand.worldbankgroup.org/an-accessible-future-for-persons-with-disabilities/assets/gQfepmnsfg/fallback-3840x2160.jpeg"
+                              alt="" style="object-position:50% 50%" data-object-fit="cover" data-object-position="50% 50%">
+                      </picture>
+                      <div class="FullSize Theme-Overlay Theme-Section-Dark" style="opacity:0.3;background-color:#000000"></div>
+                  </div>
+              </div>
+            </div>`
+  header.innerHTML = x;
+  main.prepend(header);
 
   // addSectionBackgrounds(main);
   // check if first section is dark
