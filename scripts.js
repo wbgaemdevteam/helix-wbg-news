@@ -183,8 +183,13 @@ function addClassNamesForPosition(position, $section) {
     $section.classList.add("Theme-Section", "Theme-TextSection", "Theme-Section-Position-2", "Theme-Section-Layout--Full", "Theme-Section-Light", "Theme-BodyTextColumn-Center",
       "Theme-Section-HasOverlay", "Theme-Columns--2")
   } else if (position === "5") {
+    // $section.id = "group-section-10-Commitments-on-Disability-dDqqUQC7j5";
     $section.classList.add("Theme-Section", "Theme-TextOverMediaSection", "Theme-Section-Position-5", "DisplayContainerHeight--heightHalf",
       "DisplayContainerHeight--minHeightHalf", "DisplayContainerHeight--flex", "Theme-Section-Layout--Full", "Theme-Section-Dark", "Theme-Section-HasOverlay");
+  } else if (position === "25") {
+    $section.id = "group-section-Conclusion-udk4rtZb3T";
+    $section.classList.add("Theme-Section", "Theme-TextSection", "Theme-Section-Position-24", "Display--none", "Display--md-block", "Theme-Section-Layout--Full",
+      "Theme-Section-Light", "Theme-BodyTextColumn-Center", "Theme-Columns--2");
   }
 }
 
@@ -301,9 +306,9 @@ export async function loadBlock(block, eager = false) {
     block.setAttribute('data-block-status', 'loading');
     const blockName = block.getAttribute('data-block-name');
     try {
-      // const cssLoaded = new Promise((resolve) => {
-      //   loadCSS(`${window.hlx.codeBasePath}/blocks/${blockName}/${blockName}.css`, resolve);
-      // });
+      const cssLoaded = new Promise((resolve) => {
+        loadCSS(`${window.hlx.codeBasePath}/blocks/${blockName}/${blockName}.css`, resolve);
+      });
       const decorationComplete = new Promise((resolve) => {
         (async () => {
           try {
@@ -665,6 +670,7 @@ export function decorateMain(main) {
   decorateTextImage(main);
 
   const header = document.createElement('header');
+  header.id = "section-Introduction-kwora8Oxma"
   header.classList.add("Theme-Section", "Theme-TitleSection", "Theme-Section-Position-1", "DisplayContainerHeight", "DisplayContainerHeight--minHeight",
     "DisplayContainerHeight--flex", "Theme-Section-Layout--Full", "Theme-Section-Dark", "Theme-Section-HasOverlay")
   const x = `<div class="Layout FullSize--fullHeight Theme-Layer-TextBlock Layer--one">
@@ -732,6 +738,31 @@ export function decorateMain(main) {
   //if (document.querySelector('main .section').classList.contains('dark')) document.querySelector('header').classList.add('dark');
 }
 
+function addNavSection($main) {
+  const headerdiv = document.createElement('div');
+  headerdiv.classList.add("Core--rootElement", "FullSize--fullWidth", "PositionSticky", "Levels--header", "HeaderBarContainer", "Theme-HeaderContainer", "Theme-HeaderContainer--navigable")
+  headerdiv.setAttribute('data-fixed-story-element', 'true');
+  const navigation = `<div class="Header Layout Theme-Header" role="banner">
+            <div class="Theme-Logos"></div><a href="#nav"
+                class="Navigation__hamburger Navigation__hamburger--initializing Layout__snap--xright Layout__snap--ycenter Display--lg-none Theme-Hamburger"
+                aria-expanded="false" aria-controls="navigation"><span></span><span></span><span></span><span></span><i
+                    class="Core--srOnly">Menu</i></a>
+            <nav class="Navigation Theme-NavigationBar" role="navigation" id="navigation">
+                <ul class="Navigation__itemList Theme-Navigation-ItemList">
+                    <li class="Navigation__item  Theme-NavigationBarItem"><a href="#section-Introduction-kwora8Oxma"
+                            class="Theme-NavigationLink" data-story-nav-item="true">Introduction</a></li>
+                    <li class="Navigation__item  Theme-NavigationBarItem"><a
+                            href="#group-section-10-Commitments-on-Disability-dDqqUQC7j5" class="Theme-NavigationLink"
+                            data-story-nav-item="true">10 Commitments on Disability</a></li>                    
+                    <li class="Navigation__item  Theme-NavigationBarItem"><a href="#group-section-Conclusion-udk4rtZb3T"
+                            class="Theme-NavigationLink" data-story-nav-item="true">Conclusion</a></li>
+                </ul>
+            </nav>
+        </div>`
+  headerdiv.innerHTML = navigation;
+  $main.before(headerdiv);
+}
+
 /**
  * loads everything needed to get to LCP.
  */
@@ -742,6 +773,7 @@ async function loadEager(doc) {
   // if (theme) document.body.classList.add(toClassName(theme));
 
   if (main) {
+    addNavSection(main);
     decorateMain(main);
     await waitForLCP();
   }
@@ -761,9 +793,9 @@ async function loadLazy(doc) {
   addFavIcon(`${window.hlx.codeBasePath}/styles/favicon.ico`);
 
   //space after the last section. to be removed
-  const div = document.createElement('div');
-  div.innerHTML = "</br></br></br></br></br></br></br></br></br></br>"
-  document.querySelector("body").append(div)
+  // const div = document.createElement('div');
+  // div.innerHTML = "</br></br></br></br></br></br></br></br></br></br>"
+  // document.querySelector("body").append(div)
   //load the script once the dom is loaded
   var script = document.createElement("script");
   script.src = "./shorthand.js";
