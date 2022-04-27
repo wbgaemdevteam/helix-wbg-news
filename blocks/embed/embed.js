@@ -136,11 +136,11 @@ function decorateBlockEmbeds($block) {
 }
 
 export default function decorate($block) {
-  const observer = new IntersectionObserver((events) => {
-    if (events.some((e) => e.isIntersecting)) {
+  // const observer = new IntersectionObserver((events) => {
+  //   if (events.some((e) => e.isIntersecting)) {
       decorateBlockEmbeds($block);
-      observer.disconnect();
-    }
-  });
-  observer.observe($block);
+      // observer.disconnect();
+  //   }
+  // });
+  // observer.observe($block);
 }
